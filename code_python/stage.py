@@ -1,9 +1,11 @@
 import numpy as np
+import sys
 
 class StageConfig:
     height = 10
     width = 10
     mineNumber = 10
+    doFirstFlip = True
 
 class Stage:
     """
@@ -45,6 +47,10 @@ class Stage:
         self.generateMarkNumber()
         self.generateMaskField()
         self.initFlagInfo()
+        if(StageConfig.doFirstFlip):
+            safeIdx = np.where(self.mineField != '*')
+            randomSelectIdx = int(np.random.rand() * len(safeIdx[0]))
+            self.flipGrid(safeIdx[0][randomSelectIdx], safeIdx[1][randomSelectIdx])
 
     def isMineNumberLegal(self):
         """
@@ -123,11 +129,18 @@ class Stage:
             j : int
                 j列
         """
+        if(not self.isMasked(i, j)): # 已经被点过的话，当然就不点了
+            return
+        if(self.mineField[i][j] == '*'): # 踩雷，di了！
+            self.gameover()
+        self.updateMask(i, j)
 
     def gameover(self):
         """
             游戏结束时执行
         """
+        print("gameover")
+        sys.exit(0)
 
     def updateMask(self, i, j):
         """
@@ -140,6 +153,25 @@ class Stage:
             j : int
                 j列
         """
+        # 使用队列的方法，判断该解除哪一块的mask
+        queue = [[i, j]]
+        while(queue):
+            p = queue[0]
+            queue.remove(queue[0])
+            for di in [-1, 0, 1]:
+                for dj in [-1, 0, 1]:
+                    i = p[0]
+                    j = p[1]
+                    if((di == 0 and dj == 0) or (not (0 <= i + di < self.height)) or (not (0 <= j + dj < self.width))):
+                        continue
+                    if(di and dj):
+                        continue
+                    if(self.maskField[i+di, j+dj]):
+                        if(self.mineField[i, j] not in ['0', '*'] and self.mineField[i+di, j+dj] == '0'):
+                            queue.append([i+di, j+dj])
+                        if(self.mineField[i, j] == '0' and self.mineField[i+di, j+dj] not in ['*']):
+                            queue.append([i+di, j+dj])
+            self.maskField[i, j] = False
 
     def isMasked(self, i, j):
         """
@@ -152,6 +184,9 @@ class Stage:
             j : int
                 j列            
         """
+        if(self.maskField[i][j]):
+            return True
+        return False
 
     def flagGrid(self, i, j):
         """
@@ -181,3 +216,15 @@ class Stage:
             j : int
                 j列 
         """
+
+    def cmdShow(self):
+        """
+            在cmd中打印当前状态
+        """
+        for i in range(self.height):
+            for j in range(self.width):
+                if(self.maskField[i][j]):
+                    print(".\t", end="")
+                else:
+                    print("%s\t" % self.mineField[i][j], end="")
+            print("")
