@@ -199,11 +199,17 @@ class Stage:
             j : int
                 j列 
         """
+        if(not self.maskField[i][j]): # 如果已经被点开了，自然不能插旗
+            return
+        self.updateFlag(i, j)
 
     def isFlagReachMax(self):
         """
             检查Flag数是否达到上限
         """
+        if(self.currentFlagNumber >= self.flagLimit):
+            return True
+        return False
 
     def updateFlag(self, i, j):
         """
@@ -216,15 +222,98 @@ class Stage:
             j : int
                 j列 
         """
+        if([i, j] in self.flagContainer):
+            self.flagContainer.remove([i, j])
+            self.currentFlagNumber -= 1
+        else:
+            if(not self.isFlagReachMax()):
+                self.flagContainer.append([i, j])
+                self.currentFlagNumber += 1
 
     def cmdShow(self):
         """
             在cmd中打印当前状态
         """
+        print("X\t", end="")
+        for j in range(self.width):
+            print("\033[33m%s\033[0m\t" % j, end="")
+        print("")
         for i in range(self.height):
+            print("\033[33m%s\033[0m\t" % i, end="")
             for j in range(self.width):
                 if(self.maskField[i][j]):
-                    print(".\t", end="")
+                    if([i, j] in self.flagContainer):
+                        print("F\t", end="")
+                    else:
+                        print(".\t", end="")
                 else:
                     print("%s\t" % self.mineField[i][j], end="")
             print("")
+
+    def swampGrid(self, i, j):
+        """
+            对着i, j的四周一圈扫雷
+
+            Parameters
+            ----------
+            i : int
+                i行
+            j : int
+                j列 
+        """
+        # 如果扫的是mask区，则直接跳过
+        if(self.maskField[i][j]):
+            return
+        # 如果检查到flag下面没有雷（或有雷却没被flag），则不翻开
+        for di in [-1, 0, 1]:
+            for dj in [-1, 0, 1]:
+                if((di == 0 and dj == 0) or (not (0 <= i + di < self.height)) or (not (0 <= j + dj < self.width))):
+                    continue
+                if([i+di, j+dj] in self.flagContainer and self.mineField[i+di][j+dj] != "*"):
+                    return
+                if([i+di, j+dj] not in self.flagContainer and self.mineField[i+di][j+dj] == "*"):
+                    return
+        # 扫雷成功后，翻开周围一圈的地盘
+        for di in [-1, 0, 1]:
+            for dj in [-1, 0, 1]:
+                if((di == 0 and dj == 0) or (not (0 <= i + di < self.height)) or (not (0 <= j + dj < self.width))):
+                    continue
+                if(self.maskField[i+di][j+dj] and [i+di, j+dj] not in self.flagContainer):
+                    self.flipGrid(i+di, j+dj)
+
+    def isGamewin(self):
+        """
+            判断是否游戏胜利
+        """
+        if(sum(self.maskField) == self.mineNumber):
+            return True
+        return False
+
+    def gamewin(self):
+        """
+            游戏胜利
+        """
+        print("game win!")
+
+    def action(self, signal, i, j):
+        """
+            采取动作，与图像界面直接连接
+            信号1:翻雷
+            信号2:flag
+            信号3:扫雷
+
+            Parameters
+            ----------
+            signal : int
+                信号
+            i : int
+                第i行
+            j : int
+                第j列
+        """
+        if(signal == 1):
+            self.flipGrid(i, j)
+        elif(signal == 2):
+            self.flagGrid(i, j)
+        elif(signal == 3):
+            self.swampGrid(i, j)

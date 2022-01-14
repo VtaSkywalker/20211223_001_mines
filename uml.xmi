@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMI xmi.version="1.2" timestamp="2021-12-23T20:50:27" verified="false" xmlns:UML="http://schema.omg.org/spec/UML/1.4">
+<XMI xmi.version="1.2" timestamp="2022-01-14T12:45:38" verified="false" xmlns:UML="http://schema.omg.org/spec/UML/1.4">
  <XMI.header>
   <XMI.documentation>
-   <XMI.exporter>umbrello uml modeller 2.32.0 http://umbrello.kde.org</XMI.exporter>
+   <XMI.exporter>umbrello uml modeller 2.32.1 http://umbrello.kde.org</XMI.exporter>
    <XMI.exporterVersion>1.7.3</XMI.exporterVersion>
    <XMI.exporterEncoding>UnicodeUTF8</XMI.exporterEncoding>
   </XMI.documentation>
@@ -96,14 +96,36 @@
           <UML:Parameter isSpecification="false" xmi.id="uUhKdKbOZIoFq" name="j" visibility="private" type="un4G9r0JsWX0X" value=""/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
+        <UML:Operation isSpecification="false" isLeaf="false" isRoot="false" isAbstract="false" xmi.id="ujNT8p4zO42WZ" name="swampGrid" comment="对着i, j的四周一圈扫雷" visibility="public" isQuery="false" isOverride="false" isVirtual="false" isInline="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" xmi.id="uk6N77u7tiYYu" name="i" visibility="private" type="un4G9r0JsWX0X" value=""/>
+          <UML:Parameter isSpecification="false" xmi.id="uu576TdPxvT3u" name="j" visibility="private" type="un4G9r0JsWX0X" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+        <UML:Operation isSpecification="false" isLeaf="false" isRoot="false" isAbstract="false" xmi.id="uQUXA0La7i3gI" name="isGamewin" comment="判断是否游戏胜利" visibility="public" isQuery="false" isOverride="false" isVirtual="false" isInline="false"/>
+        <UML:Operation isSpecification="false" isLeaf="false" isRoot="false" isAbstract="false" xmi.id="uyOu2ng4ioOvu" name="gamewin" comment="游戏胜利" visibility="public" isQuery="false" isOverride="false" isVirtual="false" isInline="false"/>
+        <UML:Operation isSpecification="false" isLeaf="false" isRoot="false" isAbstract="false" xmi.id="u4N2yx1pQiNxB" name="action" comment="采取动作，与图像界面直接连接&#10;信号1:翻雷&#10;信号2:flag&#10;信号3:扫雷" visibility="public" isQuery="false" isOverride="false" isVirtual="false" isInline="false">
+         <UML:BehavioralFeature.parameter>
+          <UML:Parameter isSpecification="false" xmi.id="ulI2MVGF3dMX8" name="signal" visibility="private" type="un4G9r0JsWX0X" value=""/>
+          <UML:Parameter isSpecification="false" xmi.id="uw0YbLlU0Kyhh" name="i" comment="第i行" visibility="private" type="un4G9r0JsWX0X" value=""/>
+          <UML:Parameter isSpecification="false" xmi.id="ukRCwYtiGohQC" name="j" comment="第j列" visibility="private" type="un4G9r0JsWX0X" value=""/>
+         </UML:BehavioralFeature.parameter>
+        </UML:Operation>
+       </UML:Classifier.feature>
+      </UML:Class>
+      <UML:Class isSpecification="false" isLeaf="false" isRoot="false" isAbstract="false" xmi.id="udJyoaPqASgCq" name="Display Class" namespace="Logical_View" comment="显示界面" visibility="public">
+       <UML:Classifier.feature>
+        <UML:Operation isSpecification="false" isLeaf="false" isRoot="false" isAbstract="false" xmi.id="um3aGaiPgUnwW" name="gameStage" comment="游戏图形界面" visibility="public" isQuery="false" isOverride="false" isVirtual="false" isInline="false"/>
+        <UML:Operation isSpecification="false" isLeaf="false" isRoot="false" isAbstract="false" xmi.id="u0pLk0DTiYZ0e" name="initForm" comment="初始化图形界面" visibility="public" isQuery="false" isOverride="false" isVirtual="false" isInline="false"/>
        </UML:Classifier.feature>
       </UML:Class>
      </UML:Namespace.ownedElement>
      <XMI.extension xmi.extender="umbrello">
       <diagrams resolution="96">
-       <diagram xmi.id="u6nq68JwdO5IG" name="class diagram" type="1" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="WenQuanYi Micro Hei Bold,12,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="107.613" canvasheight="437" canvaswidth="220" isopen="1">
+       <diagram xmi.id="u6nq68JwdO5IG" name="class diagram" type="1" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="WenQuanYi Micro Hei Bold,12,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="142.318" canvasheight="513" canvaswidth="557.688" isopen="1">
         <widgets>
-         <classwidget xmi.id="uPQ8P1V4CYKle" localid="unYvozj3W2zyY" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Sans Serif,12,-1,5,50,0,0,0,0,0" autoresize="0" x="-3989.25" y="-2120.39" width="220" height="437" isinstance="0" showstereotype="2" showoperations="1" showpubliconly="0" showopsigs="601" showpackage="1" showscope="1" showattributes="1" showattsigs="601" showstereotype="2"/>
+         <classwidget xmi.id="uPQ8P1V4CYKle" localid="unYvozj3W2zyY" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Sans Serif,12,-1,5,50,0,0,0,0,0" autoresize="0" x="-3989.25" y="-2119.69" width="234.053" height="513" isinstance="0" showstereotype="2" showoperations="1" showpubliconly="0" showopsigs="601" showpackage="1" showscope="1" showattributes="1" showattsigs="601" showstereotype="2"/>
+         <classwidget xmi.id="udJyoaPqASgCq" localid="umqNS7fbrTT8Z" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Sans Serif,12,-1,5,50,0,0,0,0,0" autoresize="0" x="-4312.89" y="-2035.59" width="116" height="66" isinstance="0" showstereotype="2" showoperations="1" showpubliconly="0" showopsigs="601" showpackage="1" showscope="1" showattributes="1" showattsigs="601" showstereotype="2"/>
         </widgets>
         <messages/>
         <associations/>
@@ -127,7 +149,7 @@
   </UML:Model>
  </XMI.content>
  <XMI.extensions xmi.extender="umbrello">
-  <docsettings viewid="u6nq68JwdO5IG" documentation="" uniqueid="uWeFgxI5D0dUt"/>
+  <docsettings viewid="u6nq68JwdO5IG" documentation="" uniqueid="u0pLk0DTiYZ0e"/>
   <listview>
    <listitem id="Views" type="800" open="1">
     <listitem id="Component_View" type="821" open="1"/>
@@ -158,13 +180,19 @@
       <listitem id="uBGA0kCcwRezU" type="829" open="0"/>
       <listitem id="uME1gem49xLOy" type="829" open="0"/>
      </listitem>
+     <listitem id="udJyoaPqASgCq" type="813" open="1">
+      <listitem id="um3aGaiPgUnwW" type="815" open="0"/>
+      <listitem id="u0pLk0DTiYZ0e" type="815" open="0"/>
+     </listitem>
      <listitem id="uPQ8P1V4CYKle" type="813" open="1">
+      <listitem id="u4N2yx1pQiNxB" type="815" open="0"/>
       <listitem id="ue3nuvK2C5xXV" type="814" open="0"/>
       <listitem id="uITFvfqVsdKFx" type="814" open="0"/>
       <listitem id="uPCreSXYEVhRv" type="815" open="0"/>
       <listitem id="uEURMIUOUYDCe" type="814" open="0"/>
       <listitem id="uDhBVFmbZwKP2" type="815" open="0"/>
       <listitem id="ug4HXDnfa7euM" type="815" open="0"/>
+      <listitem id="uyOu2ng4ioOvu" type="815" open="0"/>
       <listitem id="u7iPQdTHUAtEg" type="815" open="0"/>
       <listitem id="uF3col21iNhGX" type="815" open="0"/>
       <listitem id="uhGtTA7JW4FXq" type="815" open="0"/>
@@ -173,11 +201,13 @@
       <listitem id="uxozBcE9prYwa" type="815" open="0"/>
       <listitem id="urTuKDVh6Y8B2" type="815" open="0"/>
       <listitem id="uQaKl4ev8pRWc" type="815" open="0"/>
+      <listitem id="uQUXA0La7i3gI" type="815" open="0"/>
       <listitem id="u64J0XhdVVRtn" type="815" open="0"/>
       <listitem id="u4uTitUz28ukx" type="815" open="0"/>
       <listitem id="uLHNcs3je0lNd" type="814" open="0"/>
       <listitem id="u6GyD96QvssCs" type="814" open="0"/>
       <listitem id="uzCL5rKorNP5I" type="814" open="0"/>
+      <listitem id="ujNT8p4zO42WZ" type="815" open="0"/>
       <listitem id="u0sBlWWjXmw8W" type="815" open="0"/>
       <listitem id="ulSqOpYroSdsY" type="815" open="0"/>
       <listitem id="uh2PcGoVjuQAj" type="814" open="0"/>
