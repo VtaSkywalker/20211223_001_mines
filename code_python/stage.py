@@ -5,7 +5,7 @@ class StageConfig:
     height = 10
     width = 10
     mineNumber = 10
-    doFirstFlip = True
+    doFirstFlip = False
 
 class Stage:
     """
