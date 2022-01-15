@@ -83,7 +83,7 @@ class Display:
                     if('1' <= self.stage.mineField[i][j] <= '9'):
                         number_img = pygame.image.load("./img/%s.png" % self.stage.mineField[i][j])
                         number_rect = number_img.get_rect()
-                        number_img = pygame.transform.scale(number_img, (number_rect.size[0] * 0.6, number_rect.size[1] * 0.6))
+                        number_img = pygame.transform.scale(number_img, (int(number_rect.size[0] * 0.6), int(number_rect.size[1] * 0.6)))
                         number_rect = number_img.get_rect()
                         number_rect.centerx = centerx
                         number_rect.centery = centery
