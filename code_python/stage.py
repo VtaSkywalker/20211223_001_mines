@@ -173,7 +173,7 @@ class Stage:
                     if((di == 0 and dj == 0) or (not (0 <= i + di < self.height)) or (not (0 <= j + dj < self.width))):
                         continue
                     if(di and dj):
-                        continue
+                        pass
                     if(self.maskField[i+di, j+dj]):
                         if(self.mineField[i, j] not in ['0', '*'] and self.mineField[i+di, j+dj] == '0'):
                             queue.append([i+di, j+dj])
