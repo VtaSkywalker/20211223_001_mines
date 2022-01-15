@@ -51,6 +51,7 @@ class Stage:
             safeIdx = np.where(self.mineField != '*')
             randomSelectIdx = int(np.random.rand() * len(safeIdx[0]))
             self.flipGrid(safeIdx[0][randomSelectIdx], safeIdx[1][randomSelectIdx])
+        self.gameoverState = False
 
     def isMineNumberLegal(self):
         """
@@ -131,16 +132,23 @@ class Stage:
         """
         if(not self.isMasked(i, j)): # 已经被点过的话，当然就不点了
             return
+        if([i, j] in self.flagContainer): # 插了flag的不能点
+            return
         if(self.mineField[i][j] == '*'): # 踩雷，di了！
             self.gameover()
         self.updateMask(i, j)
+
+    def isGameover(self):
+        if(self.gameoverState):
+            return True
+        return False
 
     def gameover(self):
         """
             游戏结束时执行
         """
+        self.gameoverState = True
         print("gameover")
-        sys.exit(0)
 
     def updateMask(self, i, j):
         """
@@ -272,6 +280,9 @@ class Stage:
                 if([i+di, j+dj] in self.flagContainer and self.mineField[i+di][j+dj] != "*"):
                     return
                 if([i+di, j+dj] not in self.flagContainer and self.mineField[i+di][j+dj] == "*"):
+                    # 如果有雷没有flag，并且已经flag用完了，则直接点击爆炸
+                    if(self.isFlagReachMax()):
+                        self.flipGrid(i+di, j+dj)
                     return
         # 扫雷成功后，翻开周围一圈的地盘
         for di in [-1, 0, 1]:
@@ -285,7 +296,7 @@ class Stage:
         """
             判断是否游戏胜利
         """
-        if(sum(self.maskField) == self.mineNumber):
+        if(sum(sum(self.maskField)) == self.mineNumber):
             return True
         return False
 
@@ -293,6 +304,10 @@ class Stage:
         """
             游戏胜利
         """
+        for i in range(self.height):
+            for j in range(self.width):
+                if(self.maskField[i][j] and [i, j] not in self.flagContainer):
+                    self.flagContainer.append([i, j])
         print("game win!")
 
     def action(self, signal, i, j):
