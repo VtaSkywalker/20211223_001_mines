@@ -179,6 +179,9 @@ class Stage:
                             queue.append([i+di, j+dj])
                         if(self.mineField[i, j] == '0' and self.mineField[i+di, j+dj] not in ['*']):
                             queue.append([i+di, j+dj])
+            # 如果上面本来有flag，则拔掉
+            if([i, j] in self.flagContainer):
+                self.flagGrid(i, j)
             self.maskField[i, j] = False
 
     def isMasked(self, i, j):
